@@ -78,7 +78,7 @@ def processRequest(req):
         query_text = result.get("queryText")
         event = visitsingapore.SearchEvents().search_events(searchType='Keyword', searchValues=query_text)
     
-        return response(webhook_response=event, text = "")
+        return response(event)
 
 def configureDataBase():
     username = os.getenv("MONGODB_USERNAME")
