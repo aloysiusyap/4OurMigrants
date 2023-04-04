@@ -9,7 +9,7 @@ class SearchEvents:
     def __init__(self):
         # API_KEY = os.getenv("_API_KEY")
         self.ENDPOINT = "https://api.stb.gov.sg/content/events/v2/search"
-        self.HEADERS = {'x-api-key': 'NBsdjD9vXAY8ZiaGoGXM8gDAV8Yb78XQ'}
+        self.HEADERS = {'x-api-key': ''}
 
     def search_events(self, searchType, searchValues):
         PARAMETERS = {'searchType': searchType,
