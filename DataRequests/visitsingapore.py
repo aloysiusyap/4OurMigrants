@@ -9,7 +9,7 @@ class SearchEvents:
     def __init__(self):
         # API_KEY = os.getenv("_API_KEY")
         self.ENDPOINT = "https://api.stb.gov.sg/content/events/v2/search"
-        self.HEADERS = {'x-api-key': ''}
+        self.HEADERS = {'x-api-key': '<api_key_goes_here>'}
 
     def search_events(self, searchType, searchValues):
         PARAMETERS = {'searchType': searchType,
@@ -19,7 +19,7 @@ class SearchEvents:
         response = requests.get(url = self.ENDPOINT,
                                 params = PARAMETERS,
                                 headers = self.HEADERS).json()['data']
-
+        
         recommended_events = {}
         for event in response:
             recommended_events[event['name']] = {'description' : event['description'],
