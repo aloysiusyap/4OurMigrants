@@ -55,6 +55,15 @@ def processRequest(req):
         
         return response(webhook_response=webhook_response)
 
+    # searching for food locations - using yelp
+    if intent == "Where To Eat":
+        output = result.get("outputContexts")[0]
+        location = output.get("parameters").get("location.original")
+        print(location)
+        results = yelp.SearchResults().search_yelp(term="food", location=location, category='')
+        return response(results)
+
+
     # save user's input if input does not match any intents
     if intent == "Default Fallback Intent":
         log = conversations.Log()
