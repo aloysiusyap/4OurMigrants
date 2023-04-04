@@ -65,9 +65,11 @@ def processRequest(req):
         log.saveConversations(sessionID, query_text, fulfillment_text, intent, db)
         return response(fulfillment_text, '')
 
-    if intent == "Default Fallback Intent":
-        event = visitsingapore.SearchEvents().search_events(searchType='Keyword', searchValues='arts')
-        return event
+    if intent == "Visit - Type of event":
+        query_text = result.get("queryText")
+        event = visitsingapore.SearchEvents().search_events(searchType='Keyword', searchValues=query_text)
+    
+        return response(webhook_response=event, text = "")
 
 def configureDataBase():
     username = os.getenv("MONGODB_USERNAME")
