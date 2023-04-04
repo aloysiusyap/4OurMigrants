@@ -1,7 +1,6 @@
 import pandas as pd
 import datetime
 from pandas.io import gbq
-from Games import game
 
 def convertDate(d):
     d = d.split("+")[0]
@@ -27,8 +26,12 @@ class Search:
                 location = v['Location']
                 date = v['Date']
                 time = v['Time']
-                game = game.Game(organiser, contact, sport, location, date, time)
-                webhook_response += game.gameDetails()
+
+                webhook_response += f"Sport:\t {sport} \n"
+                webhook_response += f"Date:\t {date} \n"
+                webhook_response += f"Time:\t {time} \n"
+                webhook_response += f"Location:\t {location} \n"
+                webhook_response += f"Contact:\t {contact} \n\n"
         else:
             webhook_response = "No matching games. Try searching for another game or time. Alternatively you can create your own game!"
 

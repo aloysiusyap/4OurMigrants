@@ -22,10 +22,10 @@ class Game:
         new_game.to_gbq(destination_table='ourmigrants-381919.game_schedules.schedule', project_id='ourmigrants-381919', if_exists='append')
 
     def gameDetails(self):
-        output = f"Sport:\t {v['Sport']} \n"
-        output += f"Date:\t {v['Date']} \n"
-        output += f"Time:\t {v['Time']} \n"
-        output += f"Location:\t {v['Location']} \n"
-        output += f"Contact:\t {v['Contact']} \n\n"
+        output = f"Sport:\t {self.sport} \n"
+        output += f"Date:\t {self.date} \n"
+        output += f"Time:\t {self.time} \n"
+        output += f"Location:\t {self.location} \n"
+        output += f"Contact:\t {self.contact} \n\n"
         return output
     

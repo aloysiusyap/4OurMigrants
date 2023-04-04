@@ -42,7 +42,7 @@ def processRequest(req):
 
         new_game = game.Game(name, contact, sport, location, date, time)
         new_game.broadcastGame()
-        return response(webhook_response="Game has been broadCasted!", text="")
+        return response(webhook_response="Game has been broadCasted!")
     
     # joining an existing group for sports 
     if intent == "Default Welcome Intent - Play Sports - Join Group":
@@ -53,7 +53,7 @@ def processRequest(req):
         results = search.Search(sport, date)
         webhook_response = results.search_game()
         
-        return response(webhook_response=webhook_response, text = "")
+        return response(webhook_response=webhook_response)
 
     # save user's input if input does not match any intents
     if intent == "Default Fallback Intent":
@@ -63,16 +63,17 @@ def processRequest(req):
         db = configureDataBase()
 
         log.saveConversations(sessionID, query_text, fulfillment_text, intent, db)
-        return response(fulfillment_text, '')
+        return response(fulfillment_text)
 
 
 def configureDataBase():
     username = os.getenv("MONGODB_USERNAME")
     password = os.getenv("MONGODB_PASSWORD")
-    client = MongoClient(f"mongodb+srv://{username}:{password}@4ourmigrant.kyc4ohq.mongodb.net/?retryWrites=true&w=majority")
+    client = MongoClient(f"mongodb+srv://{username}:{password}@4ourmigrants.6jzqp2n.mongodb.net/?retryWrites=true&w=majority")
     return client.get_database('4OurMigrant')
 
-def response(webhook_response, text):
+
+def response(webhook_response):
     return {
 
             "fulfillmentMessages": [
@@ -82,16 +83,33 @@ def response(webhook_response, text):
                             webhook_response
                         ]
 
-                    }
+                    },
+                    "platform": "TELEGRAM"
                 },
                 {
-                    "text": {
-                        "text": [
-                            text
+                    "payload": {
+                    "telegram": {
+                        "text": "Is there anything else I can help you with?",
+                        "reply_markup": {
+                        "inline_keyboard": [
+                            [
+                            {
+                                "callback_data": "Yes end intent",
+                                "text": "Yes"
+                            }
+                            ],
+                            [
+                            {
+                                "callback_data": "No end intent",
+                                "text": "No"
+                            }
+                            ]
                         ]
-
+                        }
                     }
-                }
+                    },
+                    "platform": "TELEGRAM"
+                },
             ]
         }
 
